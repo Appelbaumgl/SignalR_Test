@@ -23,11 +23,14 @@ class App extends Component {
     connection.on("CompanyUpdate", function (message) {
       console.log("Company", message);
     });
-      
+
+    var url = window.location.href;
+    var appointmentId = url.slice(url.lastIndexOf("/") + 1);
+
     //Starts the connection and adds the connection to a group after the connection is established.
     //Replace the Guid string with any valid appointment Guid.  This would be replaced by the Guid in the url path when that is implemented.
     connection.start().then(() => {
-      connection.invoke("AddToGroup", "1e42bb0d-fa2d-4981-925f-f83c43d0c48f").catch(err => console.error(err.toString()));
+      connection.invoke("AddToGroup", appointmentId).catch(err => console.error(err.toString()));
     });
   }
 
